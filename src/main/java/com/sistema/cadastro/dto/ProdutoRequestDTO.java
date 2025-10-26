@@ -7,7 +7,7 @@ public class ProdutoRequestDTO {
 
     private String nome;
     private String descricao;
-    private String quantidade;
+    private int quantidade;
     private double valor;
 
 }
