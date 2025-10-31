@@ -19,8 +19,9 @@ public class ProdutoController {
     }
 
     @PostMapping()
-    public Produto criar(@RequestBody ProdutoRequestDTO dto){
-        return service.criarProduto(dto);
+    public ResponseEntity<Produto> criar(@RequestBody ProdutoRequestDTO dto){
+        Produto p = service.criarProduto(dto);
+        return ResponseEntity.ok(p);
     }
 
     @GetMapping()
@@ -28,12 +29,12 @@ public class ProdutoController {
         return service.listarProdutos();
     }
 
-    @PutMapping("/{id}")
-    public Produto atualizar(@PathVariable Long id, @RequestBody ProdutoRequestDTO dto){
-        return service.atualizarProduto(id, dto);
+    @PutMapping("{id}")
+    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody ProdutoRequestDTO dto){
+       return service.atualizarProduto(id, dto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Produto> deletar(@PathVariable Long id){
         return service.deletarProduto(id);
     }
