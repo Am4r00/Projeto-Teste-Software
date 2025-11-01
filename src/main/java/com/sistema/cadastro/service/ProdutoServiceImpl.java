@@ -25,6 +25,10 @@ public class ProdutoServiceImpl implements ProdutoService {
     public Produto criarProduto(ProdutoRequestDTO produto) {
         Produto p = mapper.toEntity(produto);
 
+        if (p == null) {
+            throw new NullPointerException("Deve ser passado algum produto");
+        }
+
         return repository.save(p);
     }
 
