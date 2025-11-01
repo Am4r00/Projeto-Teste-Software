@@ -3,6 +3,8 @@ package com.sistema.cadastro.controller;
 import com.sistema.cadastro.dto.ProdutoRequestDTO;
 import com.sistema.cadastro.entity.Produto;
 import com.sistema.cadastro.service.ProdutoServiceImpl;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,23 +21,36 @@ public class ProdutoController {
     }
 
     @PostMapping()
-    public ResponseEntity<Produto> criar(@RequestBody ProdutoRequestDTO dto){
-        Produto p = service.criarProduto(dto);
-        return ResponseEntity.ok(p);
+    public ResponseEntity<Produto> criar(@Valid @RequestBody ProdutoRequestDTO dto){
+        try {
+            Produto p = service.criarProduto(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(p);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping()
-    public List<Produto> listar(){
-        return service.listarProdutos();
+    public ResponseEntity<List<Produto>> listar(){
+        return ResponseEntity.ok(service.listarProdutos());
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody ProdutoRequestDTO dto){
-       return service.atualizarProduto(id, dto);
+    public ResponseEntity<Produto> atualizar(@PathVariable Long id,@Valid @RequestBody ProdutoRequestDTO dto){
+        try {
+            return ResponseEntity.ok(service.atualizarProduto(id,dto));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Produto> deletar(@PathVariable Long id){
-        return service.deletarProduto(id);
+        try {
+            service.deletarProduto(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

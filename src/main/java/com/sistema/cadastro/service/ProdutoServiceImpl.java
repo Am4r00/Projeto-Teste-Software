@@ -34,26 +34,23 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public ResponseEntity<Produto> atualizarProduto(Long id, ProdutoRequestDTO novoProduto) {
+    public Produto atualizarProduto(Long id, ProdutoRequestDTO novoProduto) {
 
         Produto p = repository.findById(id).orElse(null);
 
         if(p == null){
-            return ResponseEntity.notFound().build();
+            throw new EntityNotFoundException("Produto não encontrado");
         }
 
         mapper.updateProdutoFromDto(novoProduto, p);
-        Produto produtoAtualizado = repository.save(p);
-        return ResponseEntity.ok(produtoAtualizado);
-
+        return repository.save(p);
     }
 
     @Override
-    public ResponseEntity<Produto> deletarProduto(Long id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return ResponseEntity.noContent().build();
+    public void deletarProduto(Long id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Produto não encontrado com ID: " + id);
         }
-        return ResponseEntity.notFound().build();
+        repository.deleteById(id);
     }
 }

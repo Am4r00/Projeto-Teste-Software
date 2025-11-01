@@ -10,7 +10,7 @@ public interface ProdutoService {
 
     Produto criarProduto(ProdutoRequestDTO produto);
     List<Produto> listarProdutos();
-    ResponseEntity<Produto> atualizarProduto(Long id, ProdutoRequestDTO produto);
-    ResponseEntity<Produto> deletarProduto(Long id);
+    Produto atualizarProduto(Long id, ProdutoRequestDTO produto);
+    void deletarProduto(Long id);
 
 }
