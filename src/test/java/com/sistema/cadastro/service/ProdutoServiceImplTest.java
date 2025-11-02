@@ -11,8 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -50,8 +49,6 @@ public class ProdutoServiceImplTest {
         produtoEntidadeParaRetorno.setQuantidade(produtoDTO.getQuantidade());
         produtoEntidadeParaRetorno.setValor(produtoDTO.getValor());
 
-
-
         when(mapper.toEntity(any(ProdutoRequestDTO.class))).thenReturn(entidadeMapeadaSemId);
         when(repository.save(any(Produto.class))).thenReturn(produtoEntidadeParaRetorno);
 
@@ -65,4 +62,5 @@ public class ProdutoServiceImplTest {
         assertEquals(produtoDTO.getValor(), produtoCriado.getValor());
 
     }
+
 }
