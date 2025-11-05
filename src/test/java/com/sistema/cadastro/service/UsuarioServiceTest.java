@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -131,4 +132,21 @@ class UsuarioServiceTest {
 
         assertThrows(RuntimeException.class, () -> usuarioService.deletar(999L));
     }
+
+    @Test
+    void testErroAoSalvarUsuario() {
+        when(usuarioRepository.existsByEmail(anyString())).thenReturn(false);
+        when(usuarioRepository.existsByCpf(anyString())).thenReturn(false);
+
+        var cepResponse = new CepResponse();
+        cepResponse.setCep("01310100");
+        when(cepClient.buscarCep(anyString())).thenReturn(Mono.just(cepResponse));
+
+        when(usuarioRepository.save(any())).thenThrow(new RuntimeException("Erro no banco de dados"));
+
+        assertThrows(RuntimeException.class, () -> usuarioService.criar(usuario));
+    }
+
+
+
 }
