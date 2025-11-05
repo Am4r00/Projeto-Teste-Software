@@ -147,6 +147,13 @@ class UsuarioServiceTest {
         assertThrows(RuntimeException.class, () -> usuarioService.criar(usuario));
     }
 
+    @Test
+    void testAtualizarUsuarioNaoEncontrado() {
+        when(usuarioRepository.findById(999L)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> usuarioService.atualizar(999L, usuario));
+        verify(usuarioRepository, never()).save(any());
+    }
 
 
 }
