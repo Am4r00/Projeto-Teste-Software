@@ -155,5 +155,21 @@ class UsuarioServiceTest {
         verify(usuarioRepository, never()).save(any());
     }
 
+    @Test
+    void testBuscarPorIdNaoEncontrado() {
+        when(usuarioRepository.findById(999L)).thenReturn(Optional.empty());
+
+        var resultado = usuarioService.buscarPorId(999L);
+        assertTrue(resultado.isEmpty());
+    }
+
+    @Test
+    void testListarTodosVazio() {
+        when(usuarioRepository.findAll()).thenReturn(Arrays.asList());
+
+        var resultado = usuarioService.listarTodos();
+
+        assertTrue(resultado.isEmpty());
+    }
 
 }
