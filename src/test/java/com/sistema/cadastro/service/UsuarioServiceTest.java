@@ -172,4 +172,25 @@ class UsuarioServiceTest {
         assertTrue(resultado.isEmpty());
     }
 
+    @Test
+    void testCriarUsuarioComCamposNulos() {
+        Usuario usuarioInvalido = new Usuario();
+        usuarioInvalido.setEmail(null);
+        usuarioInvalido.setCpf(null);
+        usuarioInvalido.setNome(null);
+        usuarioInvalido.setCep("00000000");
+
+        when(cepClient.buscarCep(anyString()))
+                .thenReturn(Mono.error(new RuntimeException("CEP inválido")));
+
+        assertThrows(RuntimeException.class, () -> usuarioService.criar(usuarioInvalido));
+    }
+
+    @Test
+    void testDeletarComErroNoBanco() {
+        when(usuarioRepository.existsById(1L)).thenReturn(true);
+        doThrow(new RuntimeException("Erro de banco")).when(usuarioRepository).deleteById(1L);
+
+        assertThrows(RuntimeException.class, () -> usuarioService.deletar(1L));
+    }
 }
