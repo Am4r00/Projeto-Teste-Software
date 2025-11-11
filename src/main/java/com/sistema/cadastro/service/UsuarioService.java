@@ -105,6 +105,7 @@ public class UsuarioService {
             }
         } catch (Exception e) {
             log.warn("Erro ao buscar CEP {}: {}", usuario.getCep(), e.getMessage());
+            throw new RuntimeException("CEP inválido", e);
             // Não impede a criação do usuário mesmo se CEP falhar
         }
     }
