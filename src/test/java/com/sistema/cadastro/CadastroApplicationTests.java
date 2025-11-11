@@ -1,15 +1,22 @@
 package com.sistema.cadastro;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
+
+import static org.junit.Assert.assertNotNull;
 
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest
 class CadastroApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+    @Autowired
+    private ApplicationContext context;
 
+    @Test
+    void carregandoContexto() {
+       assertNotNull(context);
+    }
 }

@@ -28,7 +28,9 @@
     </scm>
     <properties>
         <java.version>21</java.version>
-        <org.mapstruct.version>1.6.3</org.mapstruct.version>
+    <org.mapstruct.version>1.6.3</org.mapstruct.version>
+    <!-- Bump Lombok to a version known to add support for newer javac internals -->
+    <lombok.version>1.18.30</lombok.version>
     </properties>
     <dependencies>
         <dependency>
@@ -103,6 +105,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+            <version>3.5.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
@@ -114,8 +123,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <!-- Use a newer compiler plugin that supports modern JDKs -->
+                <version>3.11.0</version>
                 <configuration>
+                    <release>${java.version}</release>
+                    <fork>true</fork>
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
@@ -123,7 +135,7 @@
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
-                            <version>1.5.5.Final</version>
+                            <version>${org.mapstruct.version}</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -133,7 +145,8 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>0.2.0</version> </path>
+                            <version>0.2.0</version>
+                        </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>

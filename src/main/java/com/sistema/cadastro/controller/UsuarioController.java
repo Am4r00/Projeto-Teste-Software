@@ -1,6 +1,6 @@
 package com.sistema.cadastro.controller;
 
-import com.sistema.cadastro.entity.Usuario;
+import com.sistema.cadastro.produto.Usuario;
 import com.sistema.cadastro.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

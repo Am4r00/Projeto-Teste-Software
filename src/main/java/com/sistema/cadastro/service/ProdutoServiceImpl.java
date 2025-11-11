@@ -1,11 +1,10 @@
 package com.sistema.cadastro.service;
 
 import com.sistema.cadastro.dto.ProdutoRequestDTO;
-import com.sistema.cadastro.entity.Produto;
+import com.sistema.cadastro.produto.Produto;
 import com.sistema.cadastro.mapper.ProdutoMapper;
 import com.sistema.cadastro.repository.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

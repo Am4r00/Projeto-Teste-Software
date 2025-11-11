@@ -1,4 +1,4 @@
-package com.sistema.cadastro.entity;
+package com.sistema.cadastro.produto;
 
 import jakarta.persistence.*;
 import lombok.Data;

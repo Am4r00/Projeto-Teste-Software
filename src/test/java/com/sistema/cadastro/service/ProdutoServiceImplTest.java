@@ -2,7 +2,7 @@ package com.sistema.cadastro.service;
 
 
 import com.sistema.cadastro.dto.ProdutoRequestDTO;
-import com.sistema.cadastro.entity.Produto;
+import com.sistema.cadastro.produto.Produto;
 import com.sistema.cadastro.mapper.ProdutoMapper;
 import com.sistema.cadastro.repository.ProdutoRepository;
 import org.junit.jupiter.api.BeforeEach;

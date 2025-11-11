@@ -1,5 +1,6 @@
-package com.sistema.cadastro.entity;
+package com.sistema.cadastro.produto.entity;
 
+import com.sistema.cadastro.produto.Produto;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ProdutoTest {
 
     @Test
-    public void novoProdutoTeste(){
+    public  void novoProdutoTeste(){
         Produto produto = new Produto();
         produto.setNome("Tv");
         produto.setDescricao("50 polegadas");
