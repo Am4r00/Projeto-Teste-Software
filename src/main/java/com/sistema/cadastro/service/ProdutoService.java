@@ -1,8 +1,7 @@
 package com.sistema.cadastro.service;
 
 import com.sistema.cadastro.dto.ProdutoRequestDTO;
-import com.sistema.cadastro.entity.Produto;
-import org.springframework.http.ResponseEntity;
+import com.sistema.cadastro.produto.Produto;
 
 import java.util.List;
 

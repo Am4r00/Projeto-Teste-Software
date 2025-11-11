@@ -1,7 +1,7 @@
 package com.sistema.cadastro.controller;
 
 import com.sistema.cadastro.dto.ProdutoRequestDTO;
-import com.sistema.cadastro.entity.Produto;
+import com.sistema.cadastro.produto.Produto;
 import com.sistema.cadastro.service.ProdutoServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

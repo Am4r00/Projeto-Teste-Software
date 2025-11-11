@@ -1,6 +1,6 @@
 package com.sistema.cadastro.repository;
 
-import com.sistema.cadastro.entity.Usuario;
+import com.sistema.cadastro.produto.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

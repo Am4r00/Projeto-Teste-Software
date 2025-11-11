@@ -1,6 +1,6 @@
 package com.sistema.cadastro.service;
 
-import com.sistema.cadastro.entity.Usuario;
+import com.sistema.cadastro.produto.Usuario;
 import com.sistema.cadastro.external.CepClient;
 import com.sistema.cadastro.external.CepResponse;
 import com.sistema.cadastro.repository.UsuarioRepository;

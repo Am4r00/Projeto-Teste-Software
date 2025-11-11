@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  docker:
+    image: docker:24-dind
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=
+    volumes:
+      - dind-var-lib:/var/lib/docker
+    networks:
+      - cicd_net
+
+  tests:
+    image: maven:3.9.9-eclipse-temurin-21
+    working_dir: /workspace
+    depends_on:
+      - docker
+    environment:
+      DOCKER_HOST: "tcp://docker:2375"
+      MAVEN_OPTS: "-Duser.home=/root"
+    volumes:
+      # compose file lives in src/test, so mount the repository root into /workspace
+      - ../..:/workspace
+      - ~/.m2:/root/.m2
+    # Use the container-provided Maven instead of the project wrapper to avoid
+    # problems with missing executable bits or CRLF on Windows mounts.
+    command: ["bash","-lc","mvn -B -DskipTests=false clean test"]
+    user: "root"
+    networks:
+      - cicd_net
+
+volumes:
+  dind-var-lib:
+
+networks:
+  cicd_net:
+    driver: bridge
