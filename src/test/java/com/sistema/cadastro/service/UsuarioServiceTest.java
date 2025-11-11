@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -130,5 +131,66 @@ class UsuarioServiceTest {
         when(usuarioRepository.existsById(999L)).thenReturn(false);
 
         assertThrows(RuntimeException.class, () -> usuarioService.deletar(999L));
+    }
+
+    @Test
+    void testErroAoSalvarUsuario() {
+        when(usuarioRepository.existsByEmail(anyString())).thenReturn(false);
+        when(usuarioRepository.existsByCpf(anyString())).thenReturn(false);
+
+        var cepResponse = new CepResponse();
+        cepResponse.setCep("01310100");
+        when(cepClient.buscarCep(anyString())).thenReturn(Mono.just(cepResponse));
+
+        when(usuarioRepository.save(any())).thenThrow(new RuntimeException("Erro no banco de dados"));
+
+        assertThrows(RuntimeException.class, () -> usuarioService.criar(usuario));
+    }
+
+    @Test
+    void testAtualizarUsuarioNaoEncontrado() {
+        when(usuarioRepository.findById(999L)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> usuarioService.atualizar(999L, usuario));
+        verify(usuarioRepository, never()).save(any());
+    }
+
+    @Test
+    void testBuscarPorIdNaoEncontrado() {
+        when(usuarioRepository.findById(999L)).thenReturn(Optional.empty());
+
+        var resultado = usuarioService.buscarPorId(999L);
+        assertTrue(resultado.isEmpty());
+    }
+
+    @Test
+    void testListarTodosVazio() {
+        when(usuarioRepository.findAll()).thenReturn(Arrays.asList());
+
+        var resultado = usuarioService.listarTodos();
+
+        assertTrue(resultado.isEmpty());
+    }
+
+    @Test
+    void testCriarUsuarioComCamposNulos() {
+        Usuario usuarioInvalido = new Usuario();
+        usuarioInvalido.setEmail(null);
+        usuarioInvalido.setCpf(null);
+        usuarioInvalido.setNome(null);
+        usuarioInvalido.setCep("00000000");
+
+        when(cepClient.buscarCep(anyString()))
+                .thenReturn(Mono.error(new RuntimeException("CEP inválido")));
+
+        assertThrows(RuntimeException.class, () -> usuarioService.criar(usuarioInvalido));
+    }
+
+    @Test
+    void testDeletarComErroNoBanco() {
+        when(usuarioRepository.existsById(1L)).thenReturn(true);
+        doThrow(new RuntimeException("Erro de banco")).when(usuarioRepository).deleteById(1L);
+
+        assertThrows(RuntimeException.class, () -> usuarioService.deletar(1L));
     }
 }
