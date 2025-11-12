@@ -1,7 +1,4 @@
-Analisado
-Sempre exibir os detalhes
-# Write a polished README.md for the provided project based on its contents
-readme = r"""# Projeto Teste de Software — Cadastro de Produtos e Usuários
+# Projeto Teste de Software — Cadastro de Produtos e Usuários
 
 Sistema **Spring Boot 3.5** (Java **21**) para cadastro de **Produtos** e **Usuários**, com persistência via **JPA/Hibernate**, banco **H2 em memória** por padrão e testes com **Testcontainers** (PostgreSQL). O projeto usa **Maven Wrapper**, **MapStruct** e **Bean Validation**.
 
