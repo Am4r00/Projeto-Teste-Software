@@ -44,7 +44,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testCriarUsuarioComSucesso() {
+    void deveCriarUsuarioComSucesso() {
         when(usuarioRepository.existsByEmail(anyString())).thenReturn(false);
         when(usuarioRepository.existsByCpf(anyString())).thenReturn(false);
 
@@ -65,7 +65,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testCriarUsuarioEmailDuplicado() {
+    void deveLancarExcecaoQuandoEmailDuplicado() {
         when(usuarioRepository.existsByEmail(anyString())).thenReturn(true);
         when(usuarioRepository.findByEmail(anyString())).thenReturn(Optional.of(usuario));
 
@@ -73,7 +73,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testCriarUsuarioCpfDuplicado() {
+    void deveLancarExcecaoQuandoCpfDuplicado() {
         when(usuarioRepository.existsByEmail(anyString())).thenReturn(false);
         when(usuarioRepository.existsByCpf(anyString())).thenReturn(true);
         when(usuarioRepository.findByCpf(anyString())).thenReturn(Optional.of(usuario));
@@ -82,7 +82,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testListarTodos() {
+    void deveListarTodosUsuarios() {
         when(usuarioRepository.findAll()).thenReturn(Arrays.asList(usuario));
 
         var resultado = usuarioService.listarTodos();
@@ -92,7 +92,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testBuscarPorId() {
+    void deveBuscarUsuarioPorId() {
         when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
 
         Optional<Usuario> resultado = usuarioService.buscarPorId(1L);
@@ -102,7 +102,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testAtualizarUsuario() {
+    void deveAtualizarUsuarioComSucesso() {
         Usuario usuarioAtualizado = new Usuario();
         usuarioAtualizado.setNome("João Santos");
         usuarioAtualizado.setEmail("joao@example.com");
@@ -118,7 +118,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testDeletarUsuario() {
+    void deveDeletarUsuarioComSucesso() {
         when(usuarioRepository.existsById(1L)).thenReturn(true);
 
         usuarioService.deletar(1L);
@@ -127,14 +127,14 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testDeletarUsuarioNaoEncontrado() {
+    void deveLancarExcecaoAoDeletarUsuarioNaoEncontrado() {
         when(usuarioRepository.existsById(999L)).thenReturn(false);
 
         assertThrows(RuntimeException.class, () -> usuarioService.deletar(999L));
     }
 
     @Test
-    void testErroAoSalvarUsuario() {
+    void deveLancarExcecaoAoSalvarUsuario() {
         when(usuarioRepository.existsByEmail(anyString())).thenReturn(false);
         when(usuarioRepository.existsByCpf(anyString())).thenReturn(false);
 
@@ -148,7 +148,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testAtualizarUsuarioNaoEncontrado() {
+    void deveLancarExcecaoAoAtualizarUsuarioNaoEncontrado() {
         when(usuarioRepository.findById(999L)).thenReturn(Optional.empty());
 
         assertThrows(RuntimeException.class, () -> usuarioService.atualizar(999L, usuario));
@@ -156,7 +156,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testBuscarPorIdNaoEncontrado() {
+    void deveRetornarVazioAoBuscarPorIdNaoEncontrado() {
         when(usuarioRepository.findById(999L)).thenReturn(Optional.empty());
 
         var resultado = usuarioService.buscarPorId(999L);
@@ -164,7 +164,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testListarTodosVazio() {
+    void deveRetornarListaVaziaQuandoNaoExistiremUsuarios() {
         when(usuarioRepository.findAll()).thenReturn(Arrays.asList());
 
         var resultado = usuarioService.listarTodos();
@@ -173,7 +173,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testCriarUsuarioComCamposNulos() {
+    void deveLancarExcecaoAoCriarUsuarioComCamposNulos() {
         Usuario usuarioInvalido = new Usuario();
         usuarioInvalido.setEmail(null);
         usuarioInvalido.setCpf(null);
@@ -187,7 +187,7 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void testDeletarComErroNoBanco() {
+    void deveLancarExcecaoAoDeletarComErroNoBanco() {
         when(usuarioRepository.existsById(1L)).thenReturn(true);
         doThrow(new RuntimeException("Erro de banco")).when(usuarioRepository).deleteById(1L);
 
