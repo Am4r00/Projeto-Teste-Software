@@ -11,7 +11,7 @@ Sistema **Spring Boot 3.5** (Java **21**) para cadastro de **Produtos** e **Usu�
 ## 🔧 Requisitos
 
 - **JDK 21** (compatível com Java 21) — verifique com `java -version`  
-- **Docker** (opcional, mas **recomendado** para rodar os testes com Testcontainers)  
+- **Docker** (**recomendado** para rodar os testes com Testcontainers)  
 - **Git** para clonar o repositório  
 - **Maven NÃO é obrigatório** (use `mvnw` / `mvnw.cmd`)
 
