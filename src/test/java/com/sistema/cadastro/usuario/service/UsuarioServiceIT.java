@@ -27,8 +27,6 @@ class UsuarioServiceIT {
     @DynamicPropertySource
     static void dynamicProps(DynamicPropertyRegistry registry) {
         wireMock.start();
-        // Ajuste AQUI para o nome da propriedade que o seu CepClient usa como base-url
-        // Exemplo:
         registry.add("https://viacep.com.br/ws", wireMock::baseUrl);
     }
 
@@ -40,7 +38,6 @@ class UsuarioServiceIT {
 
     @BeforeAll
     void stubCep() {
-        // Ajuste o path conforme o seu CepClient chama (ex.: GET /{cep})
         wireMock.stubFor(get(urlEqualTo("/01310100"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
@@ -76,7 +73,5 @@ class UsuarioServiceIT {
 
         assertNotNull(criado.getId());
         assertEquals("João Silva", criado.getNome());
-        // Se o service enriquece endereço a partir do CEP, você pode validar campos
-        // assertEquals("Avenida Paulista", criado.getLogradouro() /* ajuste conforme seu modelo */);
     }
 }

@@ -18,7 +18,7 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-@Import(TestcontainersConfiguration.class)                    // <--- importante
+@Import(TestcontainersConfiguration.class)
 class PostgresContainerIT {
 
     @Autowired
@@ -33,10 +33,10 @@ class PostgresContainerIT {
         p.setValor(2500.0);
 
         var salvo = repository.save(p);
-        Assertions.assertNotNull(salvo.getId());              // <---
+        Assertions.assertNotNull(salvo.getId());
 
         Optional<Produto> achado = repository.findById(salvo.getId());
-        Assertions.assertTrue(achado.isPresent());            // <---
-        Assertions.assertEquals("tv", achado.get().getNome()); // <---
+        Assertions.assertTrue(achado.isPresent());
+        Assertions.assertEquals("tv", achado.get().getNome());
     }
 }

@@ -49,7 +49,6 @@ public class UsuarioService {
             validarUnicidade(usuarioAtualizado, id);
         }
 
-
         usuarioExistente.setNome(usuarioAtualizado.getNome());
         usuarioExistente.setEmail(usuarioAtualizado.getEmail());
         usuarioExistente.setCpf(usuarioAtualizado.getCpf());
