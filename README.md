@@ -281,12 +281,3 @@ with open('/mnt/data/README.md', 'w', encoding='utf-8') as f:
 f.write(readme)
 
 print("README.md gerado em /mnt/data/README.md")
-
-Sempre exibir os detalhes
-STDOUT/STDERR
-README.md gerado em /mnt/data/README.md
-📄 Licença
-
-Defina a licença do projeto (ex.: MIT). Se necessário, adicione o arquivo LICENSE na raiz.
-message.txt
-16 KB
