@@ -20,6 +20,7 @@ Sistema **Spring Boot 3.5** (Java **21**) para cadastro de **Produtos** e **Usu�
 ## 🚀 Setup rápido
 
 ```bash
+
 # 1) Clone
 git clone https://github.com/Am4r00/Projeto-Teste-Software.git
 cd Projeto-Teste-Software
@@ -269,11 +270,6 @@ Commits padronizados: feat: ..., fix: ..., test: ...
 Push: git push origin feat/minha-feature
 
 Abra um Pull Request
-
-📄 Licença
-
-Defina a licença do projeto (ex.: MIT). Se necessário, adicione o arquivo LICENSE na raiz.
-"""
 
 Save file
 
